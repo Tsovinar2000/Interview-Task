@@ -41,3 +41,18 @@ Map<String, dynamic> _$SignUpModelToJson(SignUpModel instance) =>
       'type': instance.type,
       'id': instance.id,
     };
+
+SignInModel _$SignInModelFromJson(Map<String, dynamic> json) => SignInModel(
+      email: json['email'] as String?,
+      confirmPassword: json['confirmPassword'] as String?,
+      password: json['password'] as String?,
+      verifyCode: json['verifyCode'] as String?,
+    );
+
+Map<String, dynamic> _$SignInModelToJson(SignInModel instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+      'password': instance.password,
+      'confirmPassword': instance.confirmPassword,
+      'verifyCode': instance.verifyCode,
+    };

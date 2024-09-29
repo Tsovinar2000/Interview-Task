@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:interview_task_project/view/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/localization_provider.dart'; // Import for localization
@@ -84,7 +85,14 @@ class BottomMenu extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.login),
             title: Text(AppLocalizations.of(context)!.sign_in_menu),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SignInPage(),
+                ),
+              );
+            },
           ),
         ],
       ),

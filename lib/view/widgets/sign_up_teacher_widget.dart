@@ -57,7 +57,7 @@ class SignUpTeacherWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.only(left: 115),
+                padding: const EdgeInsets.only(left: 110),
                 child: ReactiveTextFieldWidget(
                   formGroup: authProvider.registerForm,
                   formControlName: 'phone',
@@ -68,17 +68,17 @@ class SignUpTeacherWidget extends StatelessWidget {
               ),
             ),
             Container(
-              color: theme.scaffoldBackgroundColor,
+              color: Colors.white,
               width: 120,
               child: ReactiveDropDownWidget(
                 formGroup: authProvider.registerForm,
                 formControlName: 'country_code',
                 cutBorderFromRight: true,
                 itemAsString: (_) {
-                  return 'text';
+                  return _;
                 },
                 items: (filter, infiniteScrollProps) =>
-                    ["Menu", "Dialog", "Modal", "BottomSheet"],
+                    ["+374", "+1", "+33", "+386"],
                 hintText: AppLocalizations.of(context)!.select_code,
                 // Localized "Select Code"
               ),
@@ -168,7 +168,7 @@ class SignUpTeacherWidget extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                showLeavePageDialog(context , true);
+                showLeavePageDialog(context, true);
               },
               child: SizedBox(
                 width: 180,

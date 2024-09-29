@@ -1,10 +1,9 @@
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:interview_task_project/view/auth/verify_account.dart';
 import 'package:provider/provider.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../service/remote_repository/firebase_repo.dart';
 import '../../view_model/auth_view_model.dart';
 import '../widgets/auth_title_widget.dart';
 import '../widgets/button.dart';
@@ -34,7 +33,7 @@ class SignUpDonorWidget extends StatelessWidget {
                 hintText: AppLocalizations.of(context)!.name,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
             Expanded(
@@ -57,30 +56,28 @@ class SignUpDonorWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.only(left: 115),
+                padding: const EdgeInsets.only(left: 110),
                 child: ReactiveTextFieldWidget(
                   formGroup: authProvider.registerForm,
                   formControlName: 'phone',
                   cutBorderFromRight: true,
-                  hintText: AppLocalizations.of(context)!
-                      .phone_number, // Localized "Phone Number"
+                  hintText: AppLocalizations.of(context)!.phone_number,
                 ),
               ),
             ),
             Container(
-              color: theme.scaffoldBackgroundColor,
+              color: Colors.white,
               width: 120,
               child: ReactiveDropDownWidget(
                 formGroup: authProvider.registerForm,
                 formControlName: 'country_code',
                 cutBorderFromRight: true,
                 itemAsString: (_) {
-                  return 'text';
+                  return _;
                 },
-                items: (filter, infiniteScrollProps) =>
-                    ["Menu", "Dialog", "Modal", "BottomSheet"],
                 hintText: AppLocalizations.of(context)!.select_code,
-                // Localized "Select Code"
+                items: (filter, infiniteScrollProps) =>
+                    ["+374", "+1", "+33", "+386"],
               ),
             ),
           ],
@@ -140,7 +137,7 @@ class SignUpDonorWidget extends StatelessWidget {
           hintText: AppLocalizations.of(context)!.confirm_password,
           showObscureText: true,
         ),
-        SizedBox(
+        const SizedBox(
           height: 25,
         ),
         Row(
@@ -159,18 +156,23 @@ class SignUpDonorWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 40,
             ),
             Expanded(
               child: ButtonWidget(
                 text: AppLocalizations.of(context)!.ok,
-                onTap: () {
+                onTap: () async {
                   authProvider.changeValidationStatus(true);
-                  authProvider.submitRegisterForm();
-                  // if (authProvider.registerForm.valid) {
-
-                  // }
+                  await authProvider.submitRegisterForm();
+                  if (FirebaseService.firebaseAuth.currentUser != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const VerifyAccount(),
+                      ),
+                    );
+                  }
                 },
               ),
             ),

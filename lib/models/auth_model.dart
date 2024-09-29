@@ -121,6 +121,7 @@ class SignUpModel {
   }
 }
 
+@JsonSerializable()
 class SignInModel {
   String? email;
   String? password;
@@ -133,4 +134,9 @@ class SignInModel {
     this.password,
     this.verifyCode,
   });
+
+  factory SignInModel.fromJson(Map<String, dynamic> json) =>
+      _$SignInModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SignInModelToJson(this);
 }

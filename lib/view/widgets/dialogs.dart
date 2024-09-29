@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
+import '../../view_model/auth_view_model.dart';
 import '../auth/sign_up.dart';
 import 'button.dart'; // For localization
 
 void showLeavePageDialog(BuildContext context, bool donor) {
+  final authProvider = context.read<AuthViewModelProvider>();
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -38,6 +41,10 @@ void showLeavePageDialog(BuildContext context, bool donor) {
               text: AppLocalizations.of(context)!.leave_anyway,
               whiteStyle: true,
               onTap: () {
+                authProvider.changeValidationStatus(false);
+                if(donor){
+                  authProvider.setFakeValuesToDonor();
+                }
                 Navigator.push(
                   context,
                   MaterialPageRoute(

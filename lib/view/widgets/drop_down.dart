@@ -153,11 +153,9 @@ class ReactiveDropDownWidget<T> extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: labelText,
                 contentPadding: const EdgeInsets.all(3).copyWith(
-                  right: 7,
-                  left: 15,
-                  top:(control.value?.length ?? 0) > 2? 20:5
-                ),
-                
+                    right: 7,
+                    left: 15,
+                    top: (control.value?.length ?? 0) > 2 ? 20 : 5),
                 hintText: hintText,
                 hintMaxLines: 1,
                 hintStyle: const TextStyle(height: 2.5),
@@ -173,7 +171,7 @@ class ReactiveDropDownWidget<T> extends StatelessWidget {
                                 .contains(ValidationMessage.required)
                             ? AppLocalizations.of(context)!
                                 .field_is_required(hintText!)
-                            : 'Invalid selection',
+                            : '',
                         style: theme.textTheme.bodyMedium!
                             .copyWith(color: Colors.red, fontSize: 15),
                       )
@@ -200,12 +198,14 @@ class ReactiveDropDownWidget<T> extends StatelessWidget {
       borderSide: BorderSide(
         color: validationCheck
             ? Colors.red.withOpacity(.6)
-            : HexColor('#194866').withOpacity(.5),
+            : HexColor('#194866').withOpacity(.8),
         width: .5,
       ),
       borderRadius: cutBorderFromRight == true
           ? const BorderRadius.only(
-              topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            )
           : cutBurderFromLeft == true
               ? const BorderRadius.only(
                   topRight: Radius.circular(10),

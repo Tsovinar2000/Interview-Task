@@ -23,7 +23,14 @@ class AuthTitle extends StatelessWidget {
                 style: theme.textTheme.headlineLarge,
               ),
               Spacer(),
-              showCancelIcon == true ? Icon(Icons.clear) : SizedBox()
+              showCancelIcon == true
+                  ? InkWell(
+                      child: Icon(Icons.clear),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  : SizedBox()
             ],
           ),
         ),

@@ -6,21 +6,25 @@ import 'firebase_repo.dart';
 
 abstract class FirebasAuthRepo {
   Future<DataState> signUp(SignUpModel signUpData);
-  // Future<DataState> signIn(SignInModel signInData);
-  // Future<DataState> verify(String email);
-  // Future<DataState> sendCodeForResetPassword(String email);
-  // Future<DataState> resetPassword(String password);
+  Future<DataState> signIn(SignInModel signInData);
+
 }
 
 class FirebaseAuthRepoImpl extends FirebasAuthRepo {
-  // @override
-  // Future<DataState> resetPassword(String password) {}
+  @override
+  Future<DataState> signIn(SignInModel signInData) async {
+    var auth = FirebaseService.firebaseAuth;
 
-  // @override
-  // Future<DataState> sendCodeForResetPassword(String email) {}
+    try {
+      var response = await auth.signInWithEmailAndPassword(
+          email: signInData.email!, password: signInData.password!);
 
-  // @override
-  // Future<DataState> signIn(SignInModel signInData) {}
+      return DataSuccess(response);
+    } catch (e) {
+      log(e.toString());
+      return DataFailed(e);
+    }
+  }
 
   @override
   Future<DataState> signUp(SignUpModel signUpData) async {
@@ -43,6 +47,5 @@ class FirebaseAuthRepoImpl extends FirebasAuthRepo {
     }
   }
 
-  // @override
-  // Future<DataState> verify(String email) {}
+
 }

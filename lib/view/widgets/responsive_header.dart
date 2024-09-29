@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:interview_task_project/models/auth_model.dart';
+import 'package:interview_task_project/view/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../view_model/localization_provider.dart';
@@ -15,7 +17,7 @@ class ResponsiveHeader extends StatelessWidget implements PreferredSizeWidget {
         if (constraints.maxWidth > 800) {
           return const WebHeader();
         } else {
-          return SizedBox(height: 60, child: const MobileHeader());
+          return const SizedBox(height: 60, child: MobileHeader());
         }
       },
     );
@@ -36,7 +38,7 @@ class WebHeader extends StatelessWidget {
         Provider.of<LocalizationProvider>(context, listen: false);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      color: theme.primaryColor, // Match the color from your image
+      color: theme.primaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -54,7 +56,9 @@ class WebHeader extends StatelessWidget {
                 width: 100,
                 child: Row(children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      localizationProvideer.changeLocale(const Locale('en'));
+                    },
                     child: Text(
                       'Eng',
                       style: theme.textTheme.headlineSmall,
@@ -64,7 +68,9 @@ class WebHeader extends StatelessWidget {
                     width: 10,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      localizationProvideer.changeLocale(const Locale('hy'));
+                    },
                     child: Text(
                       'Հայ',
                       style: theme.textTheme.headlineSmall,
@@ -88,7 +94,7 @@ class WebHeader extends StatelessWidget {
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 115,
               ),
               const Spacer(),
@@ -99,10 +105,20 @@ class WebHeader extends StatelessWidget {
               _navItem(AppLocalizations.of(context)!.blog, theme),
               const Spacer(),
               const Icon(Icons.login, color: Colors.white), // Sign in icon
-              Container(
-                width: 115,
-                child: Text(AppLocalizations.of(context)!.sign_in,
-                    style: TextStyle(color: Colors.white)),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInPage(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 115,
+                  child: Text(AppLocalizations.of(context)!.sign_in,
+                      style: const TextStyle(color: Colors.white)),
+                ),
               ),
             ],
           ),
@@ -133,17 +149,17 @@ class MobileHeader extends StatelessWidget {
       backgroundColor: theme.primaryColor,
       automaticallyImplyLeading: false,
       actions: [
-        SizedBox(
+        const SizedBox(
           width: 100,
         ),
-        Spacer(),
+        const Spacer(),
         Center(
           child: Image.asset(
             'assets/logo_mobile.png',
             height: 48,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         SizedBox(
           width: 100,
           child: Align(
@@ -154,11 +170,10 @@ class MobileHeader extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
-                    isScrollControlled: true, // Allows custom height
+                    isScrollControlled: true,
                     builder: (BuildContext context) {
                       return Container(
-                        height: MediaQuery.of(context).size.height *
-                            0.6, // 50% of screen height
+                        height: MediaQuery.of(context).size.height * 0.6,
                         child: BottomMenu(),
                       );
                     },
