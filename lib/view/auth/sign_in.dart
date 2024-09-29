@@ -21,7 +21,19 @@ class SignInPage extends StatelessWidget {
     return ReactiveForm(
       formGroup: authProvider.loginForm,
       child: Center(
-        child: SizedBox(
+        child: Container(
+          decoration: kIsWeb
+              ? BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                      BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 2,
+                          color: Colors.grey.withOpacity(.3))
+                    ])
+              : BoxDecoration(),
+          margin: kIsWeb ? EdgeInsets.all(30) : EdgeInsets.zero,
           width: kIsWeb ? 432 : double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(18),

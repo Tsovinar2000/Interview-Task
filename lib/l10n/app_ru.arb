@@ -43,7 +43,7 @@
   "leave_page_warning": "Если вы покинете эту страницу сейчас, весь ваш прогресс будет потерян",
   "continue_registration": "Продолжить регистрацию",
   "leave_anyway": "Уйти все равно",
-  "field_is_required": "{fieldName} обязательно для заполнения",
+  "field_is_required": "{fieldName} обязательно",
   "city_village": "Город, Село",
   "school": "Школа",
   "subject": "Предмет",

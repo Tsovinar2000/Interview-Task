@@ -88,6 +88,7 @@ class SignUpTeacherWidget extends StatelessWidget {
         ReactiveDropDownWidget(
           formGroup: authProvider.registerForm,
           formControlName: 'region_state',
+          showSearchBox: false,
           itemAsString: (_) {
             return _;
           },
@@ -169,11 +170,14 @@ class SignUpTeacherWidget extends StatelessWidget {
               onTap: () {
                 showLeavePageDialog(context , true);
               },
-              child: Text(
-                AppLocalizations.of(context)!.register_as_donor,
-                style: theme.textTheme.bodyMedium!
-                    .copyWith(decoration: TextDecoration.underline),
-                maxLines: 2,
+              child: SizedBox(
+                width: 180,
+                child: Text(
+                  AppLocalizations.of(context)!.register_as_donor,
+                  style: theme.textTheme.bodyMedium!
+                      .copyWith(decoration: TextDecoration.underline),
+                  maxLines: 2,
+                ),
               ),
             ),
             SizedBox(
