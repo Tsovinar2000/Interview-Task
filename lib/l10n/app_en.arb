@@ -2,7 +2,7 @@
   "sign_up_title": "Sign Up",
   "sign_up_subtitle": "It's quick and easy.",
   "name": "Name",
-  "surname": "Surname",
+  "lastName": "lastName",
   "email": "Email",
   "select_code": "Select Code",
   "phone_number": "Phone Number",

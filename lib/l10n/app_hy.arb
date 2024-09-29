@@ -2,7 +2,7 @@
   "sign_up_title": "Գրանցվել",
   "sign_up_subtitle": "Արագ և հեշտ է:",
   "name": "Անուն",
-  "surname": "Ազգանուն",
+  "lastName": "Ազգանուն",
   "email": "Էլ․ հասցե",
   "select_code": "Ընտրել կոդը",
   "phone_number": "Հեռախոսահամար",

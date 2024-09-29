@@ -2,7 +2,7 @@
   "sign_up_title": "Регистрация",
   "sign_up_subtitle": "Это быстро и легко.",
   "name": "Имя",
-  "surname": "Фамилия",
+  "lastName": "Фамилия",
   "email": "Эл. почта",
   "select_code": "Выбрать код",
   "phone_number": "Номер телефона",

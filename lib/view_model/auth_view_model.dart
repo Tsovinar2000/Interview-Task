@@ -1,7 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:interview_task_project/models/auth_model.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../service/remote_repository/firebase_auth_repo.dart';
+
 class AuthViewModelProvider extends ChangeNotifier {
+  final firebasAuthRepo = FirebaseAuthRepoImpl();
+
   FormGroup loginForm = FormGroup({
     'email': FormControl<String>(validators: [Validators.required]),
     'password': FormControl<String>(validators: [Validators.required]),
@@ -12,21 +19,39 @@ class AuthViewModelProvider extends ChangeNotifier {
 
   FormGroup registerForm = FormGroup(
     {
-      'name': FormControl<String>(validators: [Validators.required]),
-      'surname': FormControl<String>(validators: [Validators.required]),
-      'email': FormControl<String>(validators: [Validators.required]),
-      'country_code': FormControl<String>(validators: [Validators.required]),
-      'phone_number': FormControl<String>(validators: [Validators.required]),
-      'country': FormControl<String>(validators: [Validators.required]),
-      'region_state': FormControl<String>(validators: [Validators.required]),
-      'city': FormControl<String>(validators: [Validators.required]),
-      'school': FormControl<String>(validators: [Validators.required]),
-      'subject': FormControl<List<String>>(validators: [Validators.required]),
-      'grade': FormControl<String>(validators: [Validators.required]),
-      'password': FormControl<String>(validators: [Validators.required]),
-      'confirm_password':
-          FormControl<String>(validators: [Validators.required]),
+      'name': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'lastName': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'email': FormControl<String>(
+          validators: [Validators.required], value: 'value2@mailinator.com'),
+      'country_code': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'phone': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'country': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'region': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'cityVillage': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'school': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'subject': FormControl<List<String>>(
+          validators: [Validators.required], value: ['Value 1']),
+      'grade': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'password': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'confirmPassword': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
       'validate': FormControl<bool>(value: false),
+      'verifyCode': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'type': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
+      'id': FormControl<String>(
+          validators: [Validators.required], value: 'Value 1'),
     },
   );
 
@@ -46,10 +71,13 @@ class AuthViewModelProvider extends ChangeNotifier {
     }
   }
 
-  void submitRegisterForm() {
+  void submitRegisterForm() async {
+    log(SignUpModel.fromJson(registerForm.value).toString());
     if (registerForm.valid) {
-      print(
-          'Register form submitted with email: ${registerForm.control('email').value}');
+      var response = await firebasAuthRepo
+          .signUp(SignUpModel.fromJson(registerForm.value));
+
+      log(response.toString());
     } else {
       registerForm.markAllAsTouched();
     }

@@ -40,9 +40,9 @@ class SignUpDonorWidget extends StatelessWidget {
             Expanded(
               child: ReactiveTextFieldWidget(
                 formGroup: authProvider.registerForm,
-                formControlName: 'surname',
+                formControlName: 'lastName',
                 hintText: AppLocalizations.of(context)!
-                    .surname, // Localized in the next section
+                    .lastName, // Localized in the next section
               ),
             ),
           ],
@@ -60,7 +60,7 @@ class SignUpDonorWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 115),
                 child: ReactiveTextFieldWidget(
                   formGroup: authProvider.registerForm,
-                  formControlName: 'phone_number',
+                  formControlName: 'phone',
                   cutBorderFromRight: true,
                   hintText: AppLocalizations.of(context)!
                       .phone_number, // Localized "Phone Number"
@@ -102,7 +102,7 @@ class SignUpDonorWidget extends StatelessWidget {
         ),
         ReactiveDropDownWidget(
           formGroup: authProvider.registerForm,
-          formControlName: 'region_state',
+          formControlName: 'region',
           showSearchBox: false,
           itemAsString: (_) {
             return _;
@@ -116,7 +116,7 @@ class SignUpDonorWidget extends StatelessWidget {
         ),
         ReactiveDropDownWidget(
           formGroup: authProvider.registerForm,
-          formControlName: 'city',
+          formControlName: 'cityVillage',
           itemAsString: (_) {
             return 'text';
           },
@@ -136,7 +136,7 @@ class SignUpDonorWidget extends StatelessWidget {
         ),
         ReactiveTextFieldWidget(
           formGroup: authProvider.registerForm,
-          formControlName: 'confirm_password',
+          formControlName: 'confirmPassword',
           hintText: AppLocalizations.of(context)!.confirm_password,
           showObscureText: true,
         ),
@@ -167,9 +167,10 @@ class SignUpDonorWidget extends StatelessWidget {
                 text: AppLocalizations.of(context)!.ok,
                 onTap: () {
                   authProvider.changeValidationStatus(true);
-                  if (authProvider.registerForm.valid) {
-                    
-                  }
+                  authProvider.submitRegisterForm();
+                  // if (authProvider.registerForm.valid) {
+
+                  // }
                 },
               ),
             ),

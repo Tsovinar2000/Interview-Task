@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:interview_task_project/firebase_options.dart';
 import 'package:interview_task_project/l10n/l10n.dart';
 import 'package:interview_task_project/view_model/localization_provider.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +12,10 @@ import 'view/auth/sign_in.dart';
 import 'view/widgets/responsive_header.dart';
 import 'view_model/auth_view_model.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
