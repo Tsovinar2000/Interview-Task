@@ -13,11 +13,9 @@ class ResponsiveHeader extends StatelessWidget implements PreferredSizeWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 800) {
-          // Web view (larger screens)
           return const WebHeader();
         } else {
-          // Mobile view (smaller screens)
-          return const MobileHeader();
+          return SizedBox(height: 60, child: const MobileHeader());
         }
       },
     );
@@ -44,61 +42,68 @@ class WebHeader extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
-              Center(
-                child: Image.asset('assets/logo.png', height: 65),
+              const SizedBox(
+                width: 100,
               ),
-              Spacer(),
-              Row(children: [
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'Eng',
-                    style: theme.textTheme.headlineSmall,
+              const Spacer(),
+              Image.asset('assets/logo.png', height: 65),
+              const Spacer(),
+              SizedBox(
+                width: 100,
+                child: Row(children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Eng',
+                      style: theme.textTheme.headlineSmall,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'Հայ',
-                    style: theme.textTheme.headlineSmall,
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                InkWell(
-                  onTap: () {
-                    localizationProvideer.changeLocale(Locale('ru'));
-                  },
-                  child: Text(
-                    'Рус',
-                    style: theme.textTheme.headlineSmall,
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Հայ',
+                      style: theme.textTheme.headlineSmall,
+                    ),
                   ),
-                )
-              ]),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      localizationProvideer.changeLocale(const Locale('ru'));
+                    },
+                    child: Text(
+                      'Рус',
+                      style: theme.textTheme.headlineSmall,
+                    ),
+                  )
+                ]),
+              ),
             ],
           ),
           Row(
             children: [
-              Spacer(),
-              _navItem('TEACHERS', theme),
-              const SizedBox(width: 20),
-              _navItem('DONORS', theme),
-              const SizedBox(width: 20),
-              _navItem('ABOUT US', theme),
-              const SizedBox(width: 20),
-              _navItem('CONTACT US', theme),
-              const SizedBox(width: 20),
-              _navItem('BLOG', theme),
-              const SizedBox(width: 20),
-              Spacer(),
+              SizedBox(
+                width: 115,
+              ),
+              const Spacer(),
+              _navItem(AppLocalizations.of(context)!.teachers, theme),
+              _navItem(AppLocalizations.of(context)!.donors, theme),
+              _navItem(AppLocalizations.of(context)!.about_us, theme),
+              _navItem(AppLocalizations.of(context)!.contact_us, theme),
+              _navItem(AppLocalizations.of(context)!.blog, theme),
+              const Spacer(),
               const Icon(Icons.login, color: Colors.white), // Sign in icon
-              Text('Sign In', style: TextStyle(color: Colors.white)),
+              Container(
+                width: 115,
+                child: Text(AppLocalizations.of(context)!.sign_in,
+                    style: TextStyle(color: Colors.white)),
+              ),
             ],
           ),
         ],
@@ -107,9 +112,12 @@ class WebHeader extends StatelessWidget {
   }
 
   Widget _navItem(String text, ThemeData theme) {
-    return Text(
-      text,
-      style: theme.textTheme.headlineMedium,
+    return Padding(
+      padding: const EdgeInsets.only(left: 25.0, right: 25),
+      child: Text(
+        text,
+        style: theme.textTheme.headlineMedium,
+      ),
     );
   }
 }
@@ -125,39 +133,44 @@ class MobileHeader extends StatelessWidget {
       backgroundColor: theme.primaryColor,
       automaticallyImplyLeading: false,
       actions: [
-        Spacer(
-          flex: 3,
+        SizedBox(
+          width: 100,
         ),
+        Spacer(),
         Center(
           child: Image.asset(
             'assets/logo_mobile.png',
             height: 48,
           ),
         ),
-        Spacer(
-          flex: 2,
-        ),
-        GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true, // Allows custom height
-              builder: (BuildContext context) {
-                return Container(
-                  height: MediaQuery.of(context).size.height *
-                      0.6, // 50% of screen height
-                  child: BottomMenu(),
-                );
-              },
-            );
-          },
-          child: Image.asset(
-            'assets/drawer_icon.png',
-            height: 24,
+        Spacer(),
+        SizedBox(
+          width: 100,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true, // Allows custom height
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height *
+                            0.6, // 50% of screen height
+                        child: BottomMenu(),
+                      );
+                    },
+                  );
+                },
+                child: Image.asset(
+                  'assets/drawer_icon.png',
+                  height: 24,
+                ),
+              ),
+            ),
           ),
-        ),
-        const SizedBox(
-          width: 20,
         ),
       ],
     );
